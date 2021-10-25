@@ -10,12 +10,13 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-// TODO: APIKEY 파일안에 apikey를 작성해주세요.
+// TODO: APIKEY 파일 안에 apikey를 작성해주세요.
 
 class WeatherViewController: UIViewController {
   
   // MARK: - Properties
   let locationManager = CLLocationManager()
+  let locale = Locale(identifier: "Ko-kr")
   
   var latitude: Double?
   var longitude: Double?
@@ -35,6 +36,8 @@ class WeatherViewController: UIViewController {
     super.viewDidLoad()
     setLabel([temperatureLabel, humidityLabel, windSpeedLabel, feelingLabel])
     getCurrentWeather(37.65469539112308, 127.0605780377212)
+    
+    getCoordinte(CLLocation(latitude: 37.65469539112308, longitude: 127.0605780377212))
   }
   
   // MARK: - Configure
@@ -51,11 +54,27 @@ class WeatherViewController: UIViewController {
       switch response.result {
       case .success(let value):
         let json = JSON(value)
-        print("JSON: \(json)")
+        let main = json["main"]
+        // TODO: Json 파싱
+        
       case .failure(let error):
-        print(error)
+        print(error.localizedDescription)
       }
     }
+  }
+  
+  func getCoordinte(_ coordinate: CLLocation) {
+    let geoCoder = CLGeocoder()
+    
+    geoCoder.reverseGeocodeLocation(coordinate, preferredLocale: locale, completionHandler: {(placemarks, error) in
+      if let address: [CLPlacemark] = placemarks {
+        guard let city: String = address.last?.administrativeArea else { return }
+        guard let gu: String = address.last?.locality else { return }
+        guard let dong: String = address.last?.subLocality else { return }
+        
+        self.locationLabel.text = "\(city), \(gu) \(dong)"
+      }
+    })
   }
   
   // MARK: - Actions
