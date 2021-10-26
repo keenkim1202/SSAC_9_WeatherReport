@@ -20,6 +20,7 @@
 		1C9636F327269DA8005F12CC /* DateFormatter++Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9636F227269DA8005F12CC /* DateFormatter++Extension.swift */; };
 		1CEB4E522727EBC200A4274C /* WeatherInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1CEB4E512727EBC200A4274C /* WeatherInfo.plist */; };
 		1CEB4E542727EBFC00A4274C /* Bundle++WeatherReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEB4E532727EBFC00A4274C /* Bundle++WeatherReport.swift */; };
+		1CEB4E562727F0BC00A4274C /* UIAlret++WeatherReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEB4E552727F0BC00A4274C /* UIAlret++WeatherReport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		1C9636F227269DA8005F12CC /* DateFormatter++Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter++Extension.swift"; sourceTree = "<group>"; };
 		1CEB4E512727EBC200A4274C /* WeatherInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WeatherInfo.plist; sourceTree = "<group>"; };
 		1CEB4E532727EBFC00A4274C /* Bundle++WeatherReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle++WeatherReport.swift"; sourceTree = "<group>"; };
+		1CEB4E552727F0BC00A4274C /* UIAlret++WeatherReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlret++WeatherReport.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				1CEB4E512727EBC200A4274C /* WeatherInfo.plist */,
 				1C9636F0272699E0005F12CC /* APIKEY.swift */,
 				1CEB4E532727EBFC00A4274C /* Bundle++WeatherReport.swift */,
+				1CEB4E552727F0BC00A4274C /* UIAlret++WeatherReport.swift */,
 			);
 			path = SSAC_9_WeatherReport;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				1C9636F1272699E0005F12CC /* APIKEY.swift in Sources */,
 				1C9636CF2726891B005F12CC /* AppDelegate.swift in Sources */,
 				1C9636D12726891B005F12CC /* SceneDelegate.swift in Sources */,
+				1CEB4E562727F0BC00A4274C /* UIAlret++WeatherReport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

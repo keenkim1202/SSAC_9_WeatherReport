@@ -10,9 +10,7 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-// TODO: 현재 위치 정보 가져오기
-// TODO: 권한에 따른 분기
-
+// TODO: 권한에 따른 분기..?
 
 class WeatherViewController: UIViewController {
   
@@ -20,8 +18,11 @@ class WeatherViewController: UIViewController {
   let locationManager = CLLocationManager()
   let locale = Locale(identifier: "Ko-kr")
   
-  var latitude: Double?
-  var longitude: Double?
+  var currentLocation: CLLocation?
+  
+    // for test.
+//  var latitude: Double = 37.65469539112308
+//  var longitude: Double = 127.0605780377212
   
   // MARK: - UI
   @IBOutlet weak var dateLabel: UILabel!
@@ -36,17 +37,32 @@ class WeatherViewController: UIViewController {
   // MARK: - View Life-Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    textBeforeGetLocationAuthorization()
     
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestWhenInUseAuthorization()
+    
+    if CLLocationManager.locationServicesEnabled() {
+      print("위치 서비스 On 상태")
+      locationManager.startUpdatingLocation() //위치 정보 받아오기 시작
+    } else {
+      print("위치 서비스 Off 상태")
+    }
     
     setCurrentDate()
     setLabel([temperatureLabel, humidityLabel, windSpeedLabel, feelingLabel])
-    
-    getCurrentWeather(37.65469539112308, 127.0605780377212)
-    getCoordinte(CLLocation(latitude: 37.65469539112308, longitude: 127.0605780377212))
   }
   
   // MARK: - Configure
+  func textBeforeGetLocationAuthorization() {
+    locationLabel.text = "위치 권한 대기중"
+    temperatureLabel.text = "지금 몇도일까..?"
+    humidityLabel.text = "습도는 얼마일까..?"
+    windSpeedLabel.text = "풍속은 얼마일까..?"
+    feelingLabel.text = "위치 권한이 없어서 슬퍼요 :("
+  }
+  
   func setCurrentDate() {
     let df = DateFormatter()
     df.locale = locale
@@ -82,7 +98,7 @@ class WeatherViewController: UIViewController {
     }
   }
   
-  func getCoordinte(_ coordinate: CLLocation) {
+  func getAddress(_ coordinate: CLLocation) {
     let geoCoder = CLGeocoder()
     
     geoCoder.reverseGeocodeLocation(coordinate, preferredLocale: locale, completionHandler: {(placemarks, error) in
@@ -96,16 +112,42 @@ class WeatherViewController: UIViewController {
     })
   }
   
+  fileprivate func showAlert(_ message: String) {
+    UIAlertController.show(self, contentType: .error, message: message)
+  }
+  
   // MARK: - Actions
   @IBAction func onShareButton(_ sender: UIButton) {
   }
   
   @IBAction func onRefreshButton(_ sender: UIButton) {
+    if let location = currentLocation {
+      let coor = location.coordinate
+      getCurrentWeather(coor.latitude, coor.longitude)
+    } else {
+     showAlert("현재 위치 정보 불러오기 실패")
+    }
   }
-  
 }
 
 // MARK: Extension - CLLocationManagerDelegate
 extension WeatherViewController: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    print(#function)
+    // 사용자의 위치 정보를 위도 경도 변수에 저장.
+    if let location = locations.first {
+      currentLocation = location
+      
+      if let current = currentLocation {
+        let coor = current.coordinate
+        getCurrentWeather(coor.latitude, coor.longitude)
+        getAddress(CLLocation(latitude: coor.latitude, longitude: coor.longitude))
+      }
+    }
+  }
   
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print(#function)
+    print(error)
+  }
 }
