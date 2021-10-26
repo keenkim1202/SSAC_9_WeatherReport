@@ -53,8 +53,8 @@ class WeatherViewController: UIViewController {
   }
   
   func getCurrentWeather(_ latitude: Double, _ longitude: Double) {
-    
-    let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(APIKEY.apikey)"
+    let apikey = Bundle.main.apiKey
+    let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(apikey)"
     
     AF.request(url, method: .get).validate().responseJSON { response in
       switch response.result {
