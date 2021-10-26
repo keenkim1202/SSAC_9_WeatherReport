@@ -73,7 +73,7 @@ class WeatherViewController: UIViewController {
         let humidity = json["main"]["humidity"].stringValue
         let windSpeed = json["wind"]["speed"].stringValue
         
-        self.temperatureLabel.text = "지금은 \(temp) 'C 에요"
+        self.temperatureLabel.text = "지금은 \(round(temp)) 'C 에요"
         self.humidityLabel.text = "\(humidity) % 만큼 습해요"
         self.windSpeedLabel.text = "\(windSpeed) m/s의 바람이 불어요"
       case .failure(let error):
