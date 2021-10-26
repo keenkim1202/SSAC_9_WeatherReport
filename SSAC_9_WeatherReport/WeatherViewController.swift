@@ -10,7 +10,9 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-// TODO: APIKEY 파일 안에 apikey를 작성해주세요.
+// TODO: 현재 위치 정보 가져오기
+// TODO: 권한에 따른 분기
+
 
 class WeatherViewController: UIViewController {
   
@@ -35,16 +37,22 @@ class WeatherViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // 위치권한 확인하는 알c림창 뜨도록 체크.
     locationManager.requestWhenInUseAuthorization()
     
+    setCurrentDate()
     setLabel([temperatureLabel, humidityLabel, windSpeedLabel, feelingLabel])
-    getCurrentWeather(37.65469539112308, 127.0605780377212)
     
+    getCurrentWeather(37.65469539112308, 127.0605780377212)
     getCoordinte(CLLocation(latitude: 37.65469539112308, longitude: 127.0605780377212))
   }
   
   // MARK: - Configure
+  func setCurrentDate() {
+    let df = DateFormatter()
+    df.locale = locale
+    dateLabel.text = df.toString(date: Date())
+  }
+  
   func setLabel(_ labels: [PaddingLabel]) {
     for l in labels {
       l.clipsToBounds = true
@@ -60,12 +68,14 @@ class WeatherViewController: UIViewController {
       switch response.result {
       case .success(let value):
         let json = JSON(value)
-        let humidity = json["main"]["humidity"].stringValue
+        
         let temp = json["main"]["temp"].doubleValue - 273.15
+        let humidity = json["main"]["humidity"].stringValue
         let windSpeed = json["wind"]["speed"].stringValue
-        self.humidityLabel.text = "\(humidity) %"
-        self.temperatureLabel.text = "\(temp) 도"
-        self.windSpeedLabel.text = "\(windSpeed) m/s"
+        
+        self.temperatureLabel.text = "지금은 \(temp) 'C 에요"
+        self.humidityLabel.text = "\(humidity) % 만큼 습해요"
+        self.windSpeedLabel.text = "\(windSpeed) m/s의 바람이 불어요"
       case .failure(let error):
         print(error)
       }
