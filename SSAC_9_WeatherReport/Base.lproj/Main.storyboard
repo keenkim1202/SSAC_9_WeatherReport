@@ -195,6 +195,7 @@
                         <outlet property="humidityLabel" destination="sQb-NG-VOF" id="gNg-W2-dac"/>
                         <outlet property="locationLabel" destination="ayS-Tk-Chg" id="RnK-sk-7h7"/>
                         <outlet property="temperatureLabel" destination="gyf-Ok-Tst" id="B8d-Kp-GQN"/>
+                        <outlet property="weatherImageView" destination="wgm-76-FSN" id="1fB-1C-GzT"/>
                         <outlet property="windSpeedLabel" destination="29G-X3-ucg" id="h6x-tY-yfI"/>
                     </connections>
                 </viewController>

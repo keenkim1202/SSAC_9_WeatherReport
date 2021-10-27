@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreLocation
+import Kingfisher
 
 // TODO: 권한에 따른 분기..?
 
@@ -30,6 +31,8 @@ class WeatherViewController: UIViewController {
   
   @IBOutlet weak var temperatureLabel: PaddingLabel!
   @IBOutlet weak var humidityLabel: PaddingLabel!
+  
+  @IBOutlet weak var weatherImageView: UIImageView!
   
   @IBOutlet weak var windSpeedLabel: PaddingLabel!
   @IBOutlet weak var feelingLabel: PaddingLabel!
@@ -87,11 +90,15 @@ class WeatherViewController: UIViewController {
         
         let temp = json["main"]["temp"].doubleValue - 273.15
         let humidity = json["main"]["humidity"].stringValue
+        let icon = json["weather"][0]["icon"].stringValue // 이거 다시 체크
         let windSpeed = json["wind"]["speed"].stringValue
         
+        print("image: \(icon)")
         self.temperatureLabel.text = "지금은 \(round(temp)) 'C 에요"
         self.humidityLabel.text = "\(humidity) % 만큼 습해요"
+        self.weatherImageView.kf.setImage(with: URL(string: "http://openweathermap.org/img/wn/\(icon)@2x.png"), placeholder: UIImage(systemName: "star"))
         self.windSpeedLabel.text = "\(windSpeed) m/s의 바람이 불어요"
+        self.feelingLabel.text = "오늘도 행복한 하루 보내세요 :)"
       case .failure(let error):
         print(error)
       }
