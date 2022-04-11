@@ -20,4 +20,4 @@ openWeather API를 가져와 현재 위치의 날씨를 알려주는 앱 입니�
 |<img width="75%" src="https://user-images.githubusercontent.com/59866819/138997683-cd68ff95-7da7-4522-8177-3b5ad1385194.png" />|<img width="120" src="https://user-images.githubusercontent.com/59866819/135194858-4405d3a0-0de3-4ca6-a594-3b08e0ae951b.png" />|<img width="60%" src="https://user-images.githubusercontent.com/59866819/138997690-f989ca31-33d7-4399-b0e4-eb7d8b8aeda1.png" />|
 
 # 실행 영상
-<p align="center"><img width="30%" src="https://user-images.githubusercontent.com/59866819/138997695-6acb9844-7b13-4f2f-bf3f-7da7c6163d9e.mp4" /></p>
+<p align="center"><img width="30%" src="https://user-images.githubusercontent.com/59866819/162690022-3a8b80bb-e9bd-4720-9034-9a846223ec69.gif" /></p>
